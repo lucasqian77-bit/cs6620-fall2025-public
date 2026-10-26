@@ -141,10 +141,38 @@ def serve_audio_segment():
 
 @app.route('/')
 def index():
-    """
-    Renders the main HTML page for the client-side audio player.
-    """
-    return render_template('index.html') 
+    return '''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>CS6620 Automated Deployment</title>
+    </head>
+    <body>
+        <h1>Hello from Automated CI/CD Pipeline!</h1>
+        <p><strong>Version:</strong> 2.0 - Automated Deployment</p>
+        <p><strong>Deployed via:</strong> GitHub Actions + AWS SSM</p>
+        <p><strong>Release ID:</strong> cs6620-ssm-v2-20261026</p>
+        <p><strong>Student:</strong> Haotian Qian</p>
+        <p><a href="/player">Open Audio Player</a></p>
+    </body>
+    </html>
+    '''
+
+
+@app.route('/player')
+def player():
+    return render_template('index.html')
+
+
+@app.route('/health')
+def health():
+    return jsonify({
+        'status': 'healthy',
+        'version': '2.0',
+        'deployment_method': 'GitHub Actions + AWS SSM',
+        'release_id': 'cs6620-ssm-v2-20261026'
+    })
 
 @app.route('/select_directory', methods=['POST'])
 def select_directory():
